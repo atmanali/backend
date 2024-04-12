@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model authentication {
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
+  password     String
+  users        users?
+  date_created DateTime?
+  date_updated DateTime?
+  user_created String?
+  user_updated String?
+}
+
+model users {
+  id                  String                @id @unique @db.Uuid
+  username            String                @unique
+  first_name          String
+  last_name           String
+  birth_day           DateTime?
+  class_id            Int?
+  role_id             String                @db.Uuid
+  authentication      authentication        @relation(fields: [username], references: [username])
+  teachers_of_classes teachers_of_classes[]
+  classes             classes?              @relation(fields: [class_id], references: [id])
+  roles               roles                 @relation(fields: [role_id], references: [id])
+  date_created        DateTime?
+  date_updated        DateTime?
+  user_created        String?
+  user_updated        String?
+}
+
+model roles {
+  id           String    @id @unique @db.Uuid
+  description  String?
+  users        users[]
+  date_created DateTime?
+  date_updated DateTime?
+  user_created String?
+  user_updated String?
+}
+
+model classes {
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  teachers_of_classes teachers_of_classes[]
+  users               users[]
+  courses             courses[]
+  date_created        DateTime?
+  date_updated        DateTime?
+  user_created        String?
+  user_updated        String?
+}
+
+model teachers_of_classes {
+  teacher_id   String    @db.Uuid
+  class_id     Int
+  classes      classes   @relation(fields: [class_id], references: [id])
+  users        users     @relation(fields: [teacher_id], references: [id])
+  date_created DateTime?
+  date_updated DateTime?
+  user_created String?
+  user_updated String?
+
+  @@id([teacher_id, class_id])
+}
+
+model courses {
+  id           Int       @id @default(autoincrement())
+  name         String
+  class_id     Int
+  date         DateTime
+  classes      classes   @relation(fields: [class_id], references: [id])
+  date_created DateTime?
+  date_updated DateTime?
+  user_created String?
+  user_updated String?
+}
+
+model files {
+  id           Int       @id @default(autoincrement())
+  name         String
+  type         String
+  status       String
+  date_created DateTime?
+  date_updated DateTime?
+  user_created String?
+  user_updated String?
+}
