@@ -3,12 +3,12 @@ import { Id } from './GlobalModel';
 export type FileModel = {
     id: number;
     name: string;
-    formatted_name: string;
     file_size: number;
     mime_type: string;
     blob: string;
     description: string;
     status: 'visible' | 'hidden' | 'deleted';
+    formatted_name?: string;
     modified_on?: Date;
     modified_by?: Id;
     date_created?: Date;

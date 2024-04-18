@@ -86,8 +86,13 @@ model courses {
 model files {
   id           Int       @id @default(autoincrement())
   name         String
-  type         String
+  mime_type    String
+  file_size    Int
+  blob         String
+  description  String
   status       String
+  modified_on  DateTime?
+  modified_by  String?
   date_created DateTime?
   date_updated DateTime?
   user_created String?
