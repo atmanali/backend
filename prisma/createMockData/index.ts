@@ -7,8 +7,8 @@ const createMockDate = async () => {
     console.log('## createMock');
     await createRoles();
     await createClasses()
-    await createUsers();
     await createAuthentication();
+    await createUsers();
 }
 
 export default createMockDate;

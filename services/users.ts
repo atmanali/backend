@@ -3,7 +3,7 @@ import prisma from '../prisma/prismaClient';
 import { v4 as uuidv4 } from 'uuid';
 import { Prisma } from '@prisma/client';
 
-export const createUsers = async ( usersToCreate: any[] ) => {
+export const createUsers = async ( usersToCreate: UserModel[] ) => {
     usersToCreate.map( async (user: UserModel) => {
         try {
             await prisma.users.create({

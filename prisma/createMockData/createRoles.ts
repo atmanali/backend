@@ -7,24 +7,24 @@ export const createRoles = async () => {
             data: [
                 {
                     id: process.env.ROLE_ADMIN as string,
-                    description: 'Administrator',
+                    description: "Administrator",
                 },
                 {
                     id: process.env.ROLE_USER_ADMIN as string,
-                    description: 'UserAdministrator',
+                    description: "UserAdministrator",
                 },
                 {
                     id: process.env.ROLE_TEACHER as string,
-                    description: 'Teacher',
+                    description: "Teacher",
                 },
                 {
                     id: process.env.ROLE_STUDENT as string,
-                    description: 'Student',
+                    description: "Student",
                 },
             ]
         })
     } catch (exception) {
         (exception instanceof Prisma.PrismaClientKnownRequestError) &&
-            console.log(exception.code)
+            console.log('roles', exception.code)
     }
 }

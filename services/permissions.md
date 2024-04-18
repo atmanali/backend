@@ -25,6 +25,12 @@
 | update  |   ✅   |     ✅      |    ✅    |    ❌    |
 | delete  |   ✅   |     ✅      |    ❌    |    ❌    |
 
-thinking about other
+| files  |  admin   | user_admin | teacher  | student  |
+|:------:|:--------:|:----------:|:--------:|:--------:|
+| create |    ✅     |     ✅      |    ✅     |    ✅     |
+|  read  |    ✅     |     ✅      | `custom` | `custom` |
+| update | `custom` |  `custom`  |    ❌     |    ❌     |
+| delete | `custom` |     ❌      |    ❌     |    ❌     |
 
-✅❌
+
+thinking about other
