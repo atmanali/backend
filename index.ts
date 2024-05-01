@@ -11,7 +11,7 @@ async function main() {
     const app = express();
     const PORT = process.env.PORT;
     app.use(express.json());
-    app.use('/', accountabilityRoute);
+    //app.use('/', accountabilityRoute);
 
     app.use('/authentication', authenticationRoute);
     app.use('/users', usersRoute);

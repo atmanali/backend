@@ -37,13 +37,27 @@ model users {
 }
 
 model roles {
-  id           String    @id @unique @db.Uuid
+  id           String        @id @unique @db.Uuid
   description  String?
   users        users[]
+  permissions  permissions[]
   date_created DateTime?
   date_updated DateTime?
   user_created String?
   user_updated String?
+}
+
+model permissions {
+  id          Int    @id @default(autoincrement())
+  role_id     String @db.Uuid
+  collection  String
+  action      String
+  permissions Json?
+  validation  Json?
+  presets     Json?
+  fields      String
+
+  roles roles @relation(fields: [role_id], references: [id])
 }
 
 model classes {
