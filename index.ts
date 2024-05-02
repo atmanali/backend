@@ -5,11 +5,20 @@ import classesRoute from './routes/classesRoute';
 import prisma from './prisma/prismaClient';
 import mockDataRoute from './routes/mockDataRoute';
 import accountabilityRoute from './routes/accountabilityRoute';
+import cors from 'cors';
+import permissionsRoute from './routes/permissionsRoute';
 
 
 async function main() {
     const app = express();
     const PORT = process.env.PORT;
+    const corsOptions = {
+        origin: process.env.ORIGIN,
+        methods: 'GET,POST',
+        //credentials: true
+    }
+
+    app.use(cors(corsOptions));
     app.use(express.json());
     //app.use('/', accountabilityRoute);
 
@@ -17,6 +26,7 @@ async function main() {
     app.use('/users', usersRoute);
     app.use('/classes', classesRoute);
     app.use('/mockData', mockDataRoute);
+    app.use('/permissions', permissionsRoute);
 
 
 

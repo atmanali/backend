@@ -16,9 +16,7 @@ authenticationRoute.post('/login', async (req, res) => {
                 password: password
             }
         })
-
-        console.log(ok);
-        res.sendStatus(200);
+        res.sendStatus(200); // todo: send cookie to front
     } catch (error) {
         console.log(error);
         res.sendStatus(500);

@@ -7,19 +7,19 @@ export const createRoles = async () => {
             data: [
                 {
                     id: process.env.ROLE_ADMIN as string,
-                    description: "Administrator",
+                    description: "administrator",
                 },
                 {
                     id: process.env.ROLE_USER_ADMIN as string,
-                    description: "UserAdministrator",
+                    description: "user_administrator",
                 },
                 {
                     id: process.env.ROLE_TEACHER as string,
-                    description: "Teacher",
+                    description: "teacher",
                 },
                 {
                     id: process.env.ROLE_STUDENT as string,
-                    description: "Student",
+                    description: "student",
                 },
             ]
         })

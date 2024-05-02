@@ -58,6 +58,13 @@ model permissions {
   fields      String
 
   roles roles @relation(fields: [role_id], references: [id])
+
+  @@unique(fields: [role_id, collection, action, permissions, validation, presets, fields], name: "unique", map: "ok")
+}
+
+model newPermissionsModel {
+  id          Int  @id @default(autoincrement())
+  permissions Json @unique
 }
 
 model classes {
