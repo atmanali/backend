@@ -16,14 +16,6 @@ export const getPermissionsFor = async (
             collection: collection,
             action: action
         },
-        select:{
-            role_id: true,
-            collection: true,
-            action: true,
-            permissions: true,
-            validation: true,
-            presets: true,
-        }
     })
     return permissions;
 }
