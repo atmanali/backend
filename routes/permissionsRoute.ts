@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import { createPermissionsFor } from '../services/permissions';
-import { getUser } from '../services/users';
-import { UserModel } from '../model/UserModel';
-import { PermissionModel } from '../model/PermissionModel';
+import { getUser } from '../services/users/get';
 
 const permissionsRoute = Router();
 permissionsRoute.post('/', async (req, res, next) => {
@@ -10,10 +8,10 @@ permissionsRoute.post('/', async (req, res, next) => {
     //console.log('permissions\t', JSON.parse(permissions as string));
 
     try{
-        const user = await getUser(username as string) as UserModel;
-        console.log(user.username);
+        const user = await getUser(username as string);
+        console.log(user?.username);
         const permissionsCreated = await createPermissionsFor(
-            user,
+            user?.role_id as string,
             // @ts-ignore
             JSON.parse(permissions as string)
         );

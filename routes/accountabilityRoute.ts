@@ -1,8 +1,6 @@
 import { Router } from 'express';
-import { accountability } from '../services/authentication';
 import prisma from '../prisma/prismaClient';
 import { getPermissionsFor } from '../services/permissions';
-import { UserModel } from '../model/UserModel';
 
 const accountabilityRoute = Router();
 accountabilityRoute.use('/', async (req, res, next) => {
@@ -15,10 +13,10 @@ accountabilityRoute.use('/', async (req, res, next) => {
         where: {
             username: req.headers.requesting_user as string
         }
-    }) as UserModel;
+    });
     //console.log('requesting_user', requesting_user);
 
-    const permissions = await getPermissionsFor(requesting_user)
+    const permissions = await getPermissionsFor(requesting_user?.role_id as string)
     //console.log('permissions', permissions);
     next();
 })

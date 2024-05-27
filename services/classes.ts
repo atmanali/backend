@@ -1,11 +1,10 @@
 import prisma from '../prisma/prismaClient';
-import { ClassModel } from '../model/ClassModel';
 import { Prisma } from '@prisma/client';
 
-export const createClasses = async (classesToCreate: ClassModel[]) => {
+export const createClasses = async (classesToCreate: Prisma.classesCreateInput[]) => {
     console.log('———> createClasses: start');
     console.log('classesToCreate', classesToCreate);
-    classesToCreate.map( async (classElement: ClassModel) => {
+    classesToCreate.map( async (classElement) => {
         try {
             await prisma.classes.create({
                 data: {
