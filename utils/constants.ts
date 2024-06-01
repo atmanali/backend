@@ -1,6 +1,6 @@
 export enum roles {
     STUDENT = 'student',
     TEACHER = 'teacher',
-    ADMINISTRATOR = 'administrator',
-    SUPER_ADMINISTRATOR = 'super_administrator'
+    ADMINISTRATOR = 'admin',
+    SUPER_ADMINISTRATOR = 'superadmin'
 }

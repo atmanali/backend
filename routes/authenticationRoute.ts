@@ -17,7 +17,7 @@ authenticationRoute.get("/", async (req, res) => {
       role: true,
     },
   });
-  res.status(200).json({ ...userAuth });
+  res.status(200).json({ data: userAuth });
 });
 authenticationRoute.post("/createNewUser", async (req, res) => {
   createAuthentication(req.body[0]).then((response) => {
@@ -32,7 +32,7 @@ authenticationRoute.post("/login", async (req, res) => {
   switch (await login(username, password)) {
     case "connected":
       res.status(200).json({
-        data: sign(username, process.env.JWT_SECRET as string),
+        token: sign(JSON.stringify(await getUser(username)), process.env.JWT_SECRET as string),
       });
       break;
     case "redirect":

@@ -1,15 +1,20 @@
 import { Prisma } from "@prisma/client";
 
 export const handlePrismaException = (exception: any) => {
-  exception instanceof Prisma.PrismaClientKnownRequestError &&
-    console.log({
+  if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+    console.log({ stack: exception.stack, meta: exception.meta });
+    return {
       error_name: exception.name,
       error_code: exception.code,
       error_meta: exception.meta,
-    });
+    };
+  }
 
-  exception instanceof Prisma.PrismaClientUnknownRequestError &&
-      console.log('on est perdu')
+  if (exception instanceof Prisma.PrismaClientUnknownRequestError) {
+    return {
+      error_name: exception.name,
+    };
+  }
 
-  return undefined;
+  return {error_name: 'unknown error'};
 };
