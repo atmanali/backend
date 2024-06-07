@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createClasses } from '../services/classes';
+import { createClasses } from '../services/classes/create';
 
 const classesRoute = Router();
 classesRoute.post('/', async (req, res, next) => {

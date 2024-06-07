@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import prisma from '../prisma/prismaClient';
-import { getPermissionsFor } from '../services/permissions';
+import { getPermissionsFor } from '../services/permissions/get';
 
 const accountabilityRoute = Router();
 accountabilityRoute.use('/', async (req, res, next) => {
