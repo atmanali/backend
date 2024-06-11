@@ -32,7 +32,7 @@ authenticationRoute.post("/login", async (req, res) => {
   switch (await login(username, password)) {
     case "connected":
       res.status(200).json({
-        token: sign(JSON.stringify(await getUser(username)), process.env.JWT_SECRET as string),
+        data: sign(JSON.stringify(await getUser(username)), process.env.JWT_SECRET as string),
       });
       break;
     case "redirect":

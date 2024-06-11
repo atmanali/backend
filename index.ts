@@ -4,9 +4,8 @@ import usersRoute from './routes/usersRoute';
 import classesRoute from './routes/classesRoute';
 import prisma from './prisma/prismaClient';
 import mockDataRoute from './routes/mockDataRoute';
-import accountabilityRoute from './routes/accountabilityRoute';
 import cors from 'cors';
-import permissionsRoute from './routes/permissionsRoute';
+import permissionsRoute from './routes/permissionsRoute'
 
 
 async function main() {
