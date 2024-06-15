@@ -10,11 +10,7 @@ permissionsRoute.post("/", async (req, res, next) => {
   try {
     const user = await getUser(username as string);
     console.log(user?.username);
-    const permissionsCreated = await createPermissions(
-      user?.role_id as string,
-      // @ts-ignore
-      JSON.parse(permissions as string),
-    );
+    const permissionsCreated = await createPermissions();
     res.status(200).json({ id: permissionsCreated });
   } catch (e) {
     console.log("## error\n", e);
