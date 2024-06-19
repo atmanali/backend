@@ -9,21 +9,39 @@ datasource db {
 
 // todo: need to refactor the relation between users and appointment: use a junction table instead
 model users {
-  id                 Int                 @id @default(autoincrement())
+  id                 String              @id @db.Uuid
   username           String              @unique
   password           String
-  passwordAsString   String
+  passwordAsString   String?
   first_name         String
-  additionnal_names  String?
+  additional_names   String?
   last_name          String
   birth_day          DateTime?
   address            String?
-  role               String
+  roles_id           String              @db.Uuid
+  role               roles               @relation(fields: [roles_id], references: [id])
   users_appointments users_appointment[]
   date_created       DateTime            @default(now())
   date_updated       DateTime?
   user_created       String?
   user_updated       String?
+}
+
+model classes {
+  id             Int          @id
+  name           String
+  last_course_id Int?
+  last_course    appointment? @relation(fields: [last_course_id], references: [id])
+}
+
+model roles {
+  id           String    @id @db.Uuid
+  name         String
+  users        users[]
+  date_created DateTime  @default(now())
+  date_updated DateTime?
+  user_created String?
+  user_updated String?
 }
 
 model appointment {
@@ -36,11 +54,12 @@ model appointment {
   date_updated       DateTime?
   user_created       String?
   user_updated       String?
+  classes            classes[]
 }
 
 model users_appointment {
   id             Int         @id @default(autoincrement())
-  users_id       Int
+  users_id       String      @db.Uuid
   users          users       @relation(fields: [users_id], references: [id])
   appointment_id Int
   appointments   appointment @relation(fields: [appointment_id], references: [id])

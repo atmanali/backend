@@ -3,6 +3,7 @@ import usersRoute from "./routes/usersRoute";
 import prisma from "./prisma/prismaClient";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes";
+import mockRoutes from "./routes/mockRoutes";
 
 async function main() {
   const app = express();
@@ -21,6 +22,7 @@ async function main() {
     next();
   });
   app.use("/auth", authRoutes);
+  app.use("/mock", mockRoutes);
   app.use("/users", usersRoute);
 
   app.listen(PORT, () => {

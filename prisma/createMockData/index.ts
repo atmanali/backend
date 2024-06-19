@@ -1,14 +1,13 @@
-import { createRoles } from './createRoles';
-import { createClasses } from './createClasses';
-import { createUsers } from './createUsers';
-import { createAuthentication } from './createAuthentication';
+import { createMockRoles } from "./createMockRoles";
+import { createMockClasses } from "./createMockClasses";
+import { createMockUsers } from "./createMockUsers";
 
-const createMockDate = async () => {
-    console.log('## createMock');
-    await createRoles();
-    await createClasses()
-    await createAuthentication();
-    await createUsers();
-}
+const createMockData = async () => {
+  return {
+    classes: await createMockClasses(),
+    roles: await createMockRoles(),
+    users: await createMockUsers(),
+  };
+};
 
-export default createMockDate;
+export default createMockData;
