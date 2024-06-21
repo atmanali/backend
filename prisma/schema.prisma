@@ -7,33 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// todo: need to refactor the relation between users and appointment: use a junction table instead
-model users {
-  id                 String              @id @db.Uuid
-  username           String              @unique
-  password           String
-  passwordAsString   String?
-  first_name         String
-  additional_names   String?
-  last_name          String
-  birth_day          DateTime?
-  address            String?
-  roles_id           String              @db.Uuid
-  role               roles               @relation(fields: [roles_id], references: [id])
-  users_appointments users_appointment[]
-  date_created       DateTime            @default(now())
-  date_updated       DateTime?
-  user_created       String?
-  user_updated       String?
-}
-
-model classes {
-  id             Int          @id
-  name           String
-  last_course_id Int?
-  last_course    appointment? @relation(fields: [last_course_id], references: [id])
-}
-
 model roles {
   id           String    @id @db.Uuid
   name         String
@@ -44,25 +17,109 @@ model roles {
   user_updated String?
 }
 
-model appointment {
+model users {
+  id                 String              @id @db.Uuid
+  username           String              @unique
+  password           String
+  passwordAsString   String?
+  first_name         String
+  additional_names   String?
+  last_name          String
+  birth_day          DateTime?
+  address_id         Int
+  address            addresses           @relation(fields: [address_id], references: [id])
+  roles_id           String              @db.Uuid
+  role               roles               @relation(fields: [roles_id], references: [id])
+  users_appointments users_appointment[]
+  classes            classes[]
+  date_created       DateTime            @default(now())
+  date_updated       DateTime?
+  user_created       String?
+  user_updated       String?
+}
+
+model classes {
+  id           Int       @id
+  name         String
+  users_id     String    @db.Uuid
+  teacher      users     @relation(fields: [users_id], references: [id])
+  courses_id   Int
+  last_course  courses   @relation(fields: [courses_id], references: [id])
+  date_created DateTime  @default(now())
+  date_updated DateTime?
+  user_created String?
+  user_updated String?
+}
+
+model courses {
+  id                Int          @id
+  name              String?
+  appointments_id   Int
+  last_presentation appointments @relation(fields: [appointments_id], references: [id])
+  classes           classes[]
+  date_created      DateTime     @default(now())
+  date_updated      DateTime?
+  user_created      String?
+  user_updated      String?
+}
+
+model appointments {
   id                 Int                 @id @default(autoincrement())
   topic              String
   type               String
   date               DateTime
   users_appointments users_appointment[]
+  courses            courses[]
   date_created       DateTime            @default(now())
   date_updated       DateTime?
   user_created       String?
   user_updated       String?
-  classes            classes[]
 }
 
 model users_appointment {
-  id             Int         @id @default(autoincrement())
-  users_id       String      @db.Uuid
-  users          users       @relation(fields: [users_id], references: [id])
+  id             Int          @id @default(autoincrement())
+  users_id       String       @db.Uuid
+  users          users        @relation(fields: [users_id], references: [id])
   appointment_id Int
-  appointments   appointment @relation(fields: [appointment_id], references: [id])
+  appointments   appointments @relation(fields: [appointment_id], references: [id])
+  date_created   DateTime     @default(now())
+  date_updated   DateTime?
+  user_created   String?
+  user_updated   String?
+}
+
+model addresses {
+  id            Int       @id
+  name          String
+  street        String
+  street_number String
+  zip_code      String
+  city          String
+  users         users[]
+  date_created  DateTime  @default(now())
+  date_updated  DateTime?
+  user_created  String?
+  user_updated  String?
+}
+
+model messages {
+  id           Int       @id
+  status       String
+  content      Json
+  date_created DateTime  @default(now())
+  date_updated DateTime?
+  user_created String?
+  user_updated String?
+}
+
+model notifications {
+  id           Int       @id
+  status       String
+  content      Json
+  date_created DateTime  @default(now())
+  date_updated DateTime?
+  user_created String?
+  user_updated String?
 }
 
 model files {
